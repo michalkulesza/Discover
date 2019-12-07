@@ -1,0 +1,83 @@
+.header-container {
+  height: 370px;
+  width: 100vw;
+  position: relative;
+  z-index: -1;
+}
+
+.header-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: blur(8px);
+  -webkit-filter: blur(6px);
+  transform: scale(1.1);
+}
+
+.header-container::after {
+  content: "";
+  height: 50px;
+  width: 100vw;
+  background-color: rgb(22, 22, 22);
+  position: absolute;
+  top: 360px;
+  left: 0;
+  display: block;
+}
+
+.header-container::before {
+  content: "";
+  height: 360px;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.header-inner-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - 87px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 100px;
+  z-index: 2;
+}
+
+#small-logo {
+  font-family: "Ubuntu", sans-serif;
+  color: WHITE;
+  font-size: 2rem;
+  margin-left: 3px;
+  margin-bottom: -7px;
+  font-weight: normal;
+}
+
+.header-inner-container span {
+  color: white;
+  margin-left: 5px;
+  font-size: 1.2rem;
+}
+
+.header-inner-container p {
+  width: 100%;
+  font-size: 4rem;
+  color: white;
+  font-weight: bold;
+  line-height: 3rem;
+  /* margin-bottom: -15px; */
+}
+
+.header-container #genre {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-left: 4px;
+  transition: opacity 0.2s ease;
+  text-transform: uppercase;
+}
