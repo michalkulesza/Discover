@@ -4,16 +4,21 @@
 // Handle axios error bettah
 // Fix search on artist image, event inheritance
 // Do search on click
+// multiple tsettoken firing up
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
-import Auth from "./components/UI/Auth/Auth";
 import Search from "./components/UI/Search/Search";
-import Main from "./components/UI/Main/Main";
+import Header from "./components/UI/Header/Header";
+import Carousel from "./components/UI/Carousel/Carousel";
+import Songs from "./components/UI/Songs/Songs";
 
 const defaultPlaylistName = "Discover APP";
+const clientId = "4e37454500dc4f868a681773f987e18e";
+const redirectUrl = "http://localhost:3000/";
+const scope = ["user-read-private", "user-read-email"];
 let createdPlaylist = false;
 
 function App() {
@@ -28,7 +33,7 @@ function App() {
   useEffect(() => {
     if (existingPlaylistID && !currentUserID) {
       getAndSetUserID();
-    } else if (!existingPlaylistID && !createdPlaylist) {
+    } else if (!existingPlaylistID && !createdPlaylist && token) {
       //Get users playlists
       axios
         .get(`https://api.spotify.com/v1/me/playlists`, {
@@ -90,7 +95,14 @@ function App() {
     }
   });
 
+  useEffect(() => {
+    let hashUrl = window.location.hash.substring(14).split("&")[0];
+    setToken(hashUrl);
+    window.location.hash = "";
+  }, []);
+
   async function getArtists(e) {
+    e.preventDefault();
     let input = document.querySelector("input");
     const form = document.querySelector("#main-form");
     const button = document.querySelector("#main-button");
@@ -155,8 +167,7 @@ function App() {
     setArtists(relatedArtists);
   }
 
-  function onClickArtistGetSongs(id, e) {
-    e.stopPropagation();
+  function onClickArtistGetSongs(id) {
     axios
       .get(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=from_token`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -253,23 +264,41 @@ function App() {
     console.log("klick");
   }
 
-  return (
-    <>
-      <Auth token={token} />
-      <Search token={token} artists={artists} getArtists={getArtists} />
-      <Main
-        token={token}
-        artists={artists}
-        onClickArtistGetSongs={onClickArtistGetSongs}
-        songs={songs}
-        onClickManageSong={onClickManageSong}
-        isSongAddedToPlaylist={isSongAddedToPlaylist}
-        setActiveArtistUI={setActiveArtistUI}
-        scrollArtistToCenter={scrollArtistToCenter}
-        onClickSearch={onClickSearch}
-      />
-    </>
-  );
+  if (!token && !artists && !songs) {
+    return (
+      <div className="wrapper centerXY authWrapper">
+        <div className="authContainer">
+          <a
+            className="loginButton"
+            href={`https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scope}&response_type=token&state=123`}
+          >
+            LOGIN TO SPOTIFY
+          </a>
+          <span>Spotify premium account is required for this app to work.</span>
+        </div>
+      </div>
+    );
+  } else if (token && !artists) {
+    return <Search getArtists={getArtists} />;
+  } else if (token && artists && songs) {
+    return (
+      <>
+        <Header artists={artists} />
+        <Carousel
+          artists={artists}
+          onClickArtistGetSongs={onClickArtistGetSongs}
+          setActiveArtistUI={setActiveArtistUI}
+          scrollArtistToCenter={scrollArtistToCenter}
+          onClickSearch={onClickSearch}
+        />
+        <Songs
+          songs={songs}
+          onClickManageSong={onClickManageSong}
+          isSongAddedToPlaylist={isSongAddedToPlaylist}
+        />
+      </>
+    );
+  }
 }
 
 export default App;

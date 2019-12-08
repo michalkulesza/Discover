@@ -38,3 +38,33 @@ button {
   font-size: 1.3rem;
   padding: 0.5rem;
 }
+
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.loginButton {
+  color: white;
+  background-color: transparent;
+  border: 2px solid #8bc34a;
+  border-radius: 4px;
+  padding: 10px 30px;
+  transition: all 0.2s ease;
+}
+
+.loginButton:hover {
+  background-color: #8bc34a;
+}
+
+.authWrapper span {
+  font-size: 0.9rem;
+  color: white;
+  position: absolute;
+  bottom: -40px;
+  cursor: default;
+}

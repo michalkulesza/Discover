@@ -21,9 +21,6 @@ const Carousel = props => {
               }}
             >
               <div className="black-overlay"></div>
-              <div className="buttons-overlay">
-                <span onClick={props.onClickSearch}>SEARCH</span>
-              </div>
               <img
                 src={artist.images[1].url}
                 alt={artist.name}
@@ -47,9 +44,6 @@ const Carousel = props => {
               }}
             >
               <div className="black-overlay"></div>
-              <div className="buttons-overlay">
-                <span>SEARCH</span>
-              </div>
               <img
                 src={artist.images[1].url}
                 alt={artist.name}
