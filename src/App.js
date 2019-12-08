@@ -29,6 +29,7 @@ function App() {
   const [usersTracks, setUsersTracks] = useState(null);
   // eslint-disable-next-line
   const [token, setToken] = useState(null);
+  const [searchLoading, setSearchLoading] = useState(false);
 
   useEffect(() => {
     if (existingPlaylistID && !currentUserID) {
@@ -103,6 +104,7 @@ function App() {
 
   async function getArtists(e) {
     e.preventDefault();
+    setSearchLoading(true);
     let input = document.querySelector("input");
     const form = document.querySelector("#main-form");
     const button = document.querySelector("#main-button");
@@ -164,7 +166,9 @@ function App() {
           }
         });
     }
+    console.log("lol");
     setArtists(relatedArtists);
+    setSearchLoading(false);
   }
 
   function onClickArtistGetSongs(id) {
@@ -279,7 +283,7 @@ function App() {
       </div>
     );
   } else if (token && !artists) {
-    return <Search getArtists={getArtists} />;
+    return <Search getArtists={getArtists} searchLoading={searchLoading} />;
   } else if (token && artists && songs) {
     return (
       <>
