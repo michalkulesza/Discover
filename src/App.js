@@ -1,8 +1,6 @@
 // In onClickAddToPlaylist sort out limit possible issue ?
 // Double click add adds song twice
-// Artist click outside the picture makes GET req
 // Handle axios error bettah
-// Fix search on artist image, event inheritance
 // Do search on click
 // multiple tsettoken firing up
 
