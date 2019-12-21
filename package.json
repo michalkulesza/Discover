@@ -9,6 +9,7 @@
     "react-scripts": "3.2.0",
     "react-text-loop": "^2.2.1"
   },
+  "homepage": "https://www.michalkulesza.me/discover",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

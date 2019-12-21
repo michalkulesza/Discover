@@ -1,9 +1,3 @@
-// In onClickAddToPlaylist sort out limit possible issue ?
-// Double click add adds song twice
-// Handle axios error bettah
-// Do search on click
-// multiple tsettoken firing up
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
@@ -14,8 +8,8 @@ import Carousel from "./components/UI/Carousel/Carousel";
 import Songs from "./components/UI/Songs/Songs";
 
 const defaultPlaylistName = "Discover APP";
-const clientId = "4e37454500dc4f868a681773f987e18e";
-const redirectUrl = "http://localhost:3000/";
+const clientId = "";
+const redirectUrl = "https://michalkulesza.me/discover";
 const scope = ["user-read-private", "user-read-email"];
 let createdPlaylist = false;
 
